@@ -21,10 +21,6 @@
   /* ── 2. DOM READY ──────────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
 
-    emailjs.init({
-      publicKey: "PUBLIC_KEY_EXAMPLE",
-    });
-
     /* ── Theme toggle ── */
     const themeBtn = document.getElementById('themeToggle');
     if (themeBtn) {
@@ -419,36 +415,21 @@
         success.hidden = true;
         if (errorEl) errorEl.hidden = true;
 
-        const templateParams = {
-          firstName: document.getElementById('firstName').value,
-          lastName: document.getElementById('lastName').value,
-          email: document.getElementById('email').value,
-          phone: document.getElementById('phone').value,
-          service: document.getElementById('service').value,
-          message: document.getElementById('message').value
-        };
+        // Simulate a successful form submission without sending real email.
+        await new Promise(function (resolve) {
+          setTimeout(resolve, 900);
+        });
 
-        try {
-          await emailjs.send('SERVICE_ID_EXAMPLE', 'TEMPLATE_ID_EXAMPLE', templateParams);
-          
-          form.reset();
-          success.hidden = false;
-          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        form.reset();
+        success.hidden = false;
+        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-          setTimeout(function () {
-            success.hidden = true;
-          }, 5000);
+        setTimeout(function () {
+          success.hidden = true;
+        }, 5000);
 
-        } catch (error) {
-          console.error('EmailJS Error Encountered:', error);
-          if (errorEl) {
-            errorEl.hidden = false;
-            errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        } finally {
-          submitBtn.disabled = false;
-          btnText.textContent = textSendButton;
-        }
+        submitBtn.disabled = false;
+        btnText.textContent = textSendButton;
       });
 
       form.querySelectorAll('input, textarea, select').forEach(function (field) {
